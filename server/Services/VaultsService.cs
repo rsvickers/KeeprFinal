@@ -33,6 +33,18 @@ public class VaultsService
         return vault;
     }
 
+    internal string RemoveVault(int vaultId, string userId)
+    {
+        Vault vault = GetVaultById(vaultId, userId);
+        if (vault.CreatorId != userId)
+        {
+            throw new Exception("NOT YOUR VAULT");
+        }
+
+        _vaultsRepository.RemoveVault(vaultId);
+        return $"{vault.Name} has been deleted.";
+    }
+
     internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
     {
         Vault vaultToUpdate = GetVaultById(vaultId, userId);

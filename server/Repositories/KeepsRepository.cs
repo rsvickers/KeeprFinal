@@ -3,6 +3,7 @@
 
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class KeepsRepository
@@ -59,6 +60,12 @@ public class KeepsRepository
 
         Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { keepId }).FirstOrDefault();
         return keep;
+    }
+
+    internal void RemoveKeep(int keepId)
+    {
+        string sql = "DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
+        _db.Execute(sql, new { keepId });
     }
 
     internal Keep UpdateKeep(Keep keepData)

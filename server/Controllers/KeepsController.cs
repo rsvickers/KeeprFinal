@@ -22,7 +22,7 @@ public class KeepsController : ControllerBase
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            keepData.creatorId = userInfo.Id;
+            keepData.CreatorId = userInfo.Id;
             Keep keep = _keepsService.CreateKeep(keepData);
             return Ok(keep);
         }
@@ -54,6 +54,22 @@ public class KeepsController : ControllerBase
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             // TODO after update change this so it counts up after visit
             Keep keep = _keepsService.GetKeepsById(keepId, userInfo?.Id);
+            return Ok(keep);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{keepId}")]
+    public async Task<ActionResult<Keep>> UpdateKeep(int keepId, [FromBody] Keep keepData)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Keep keep = _keepsService.UpdateKeep(keepId, userInfo?.Id, keepData);
             return Ok(keep);
         }
         catch (Exception e)

@@ -41,4 +41,22 @@ public class KeepsService
     // {GetKeepsById(keepId, userId);
     // Keep.Visits++
     // }
+
+
+    internal Keep UpdateKeep(int keepId, string userId, Keep keepData)
+    {
+        Keep keepToUpdate = GetKeepsById(keepId, userId);
+
+        if (keepToUpdate.CreatorId != userId)
+        {
+            throw new Exception("NOT YOUR KEEP");
+        }
+
+        keepToUpdate.Name = keepData.Name ?? keepToUpdate.Name;
+        keepToUpdate.Description = keepData.Description ?? keepToUpdate.Description;
+        keepToUpdate.Img = keepData.Img ?? keepToUpdate.Img;
+
+        Keep keep = _keepsRepository.UpdateKeep(keepToUpdate);
+        return keep;
+    }
 }

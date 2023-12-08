@@ -2,6 +2,7 @@
 
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class KeepsRepository
@@ -57,6 +58,27 @@ public class KeepsRepository
         WHERE keeps.id = @keepId;";
 
         Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { keepId }).FirstOrDefault();
+        return keep;
+    }
+
+    internal Keep UpdateKeep(Keep keepData)
+    {
+        string sql = @"
+        UPDATE keeps
+        SET
+        name = @Name,
+        description = @Description,
+        img = @Img
+        WHERE id = @Id LIMIT 1;
+
+        SELECT 
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON keeps.creatorId = accounts.id
+        WHERE keeps.id = @Id;";
+
+        Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, keepData).FirstOrDefault();
         return keep;
     }
 

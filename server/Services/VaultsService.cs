@@ -32,4 +32,22 @@ public class VaultsService
         }
         return vault;
     }
+
+    internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
+    {
+        Vault vaultToUpdate = GetVaultById(vaultId, userId);
+
+        if (vaultToUpdate.CreatorId != userId)
+        {
+            throw new Exception("NOT YOUR VAULT");
+        }
+
+        vaultToUpdate.Name = vaultData.Name ?? vaultToUpdate.Name;
+        vaultToUpdate.Description = vaultData.Description ?? vaultToUpdate.Description;
+        vaultToUpdate.Img = vaultData.Img ?? vaultToUpdate.Img;
+        vaultToUpdate.IsPrivate = vaultData.IsPrivate ?? vaultToUpdate.IsPrivate;
+
+        Vault vault = _vaultsRepository.UpdateVault(vaultToUpdate);
+        return vault;
+    }
 }

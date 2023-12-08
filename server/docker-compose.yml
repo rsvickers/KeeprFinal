@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: your-dockerhub-username/KeeprFinal:latest
+    env_file:
+      - KeeprFinal-env
+    ports:
+      - "7045:80"

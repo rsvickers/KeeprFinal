@@ -1,5 +1,6 @@
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class KeepsRepository
@@ -29,6 +30,23 @@ public class KeepsRepository
 
         return keep;
     }
+
+    // NOTE may have to add an counter to go up after other things are built out
+    internal List<Keep> GetKeeps()
+    {
+        string sql = @"
+        SELECT 
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON keeps.creatorId = accounts.id;";
+
+        List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder).ToList();
+        return keeps;
+    }
+
+
+
 
     private Keep KeepBuilder(Keep keep, Profile profile)
     {

@@ -53,7 +53,7 @@ public class KeepsController : ControllerBase
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             // TODO after update change this so it counts up after visit
-            Keep keep = _keepsService.GetKeepsById(keepId, userInfo?.Id);
+            Keep keep = _keepsService.GetKeepsByIdAndAddViews(keepId, userInfo?.Id);
             return Ok(keep);
         }
         catch (Exception e)

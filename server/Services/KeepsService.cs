@@ -37,10 +37,13 @@ public class KeepsService
         return keep;
     }
 
-    // internal Keep GetKeepsByIdAndAddVisits(int keepId, string userId)
-    // {GetKeepsById(keepId, userId);
-    // Keep.Visits++
-    // }
+    internal Keep GetKeepsByIdAndAddViews(int keepId, string userId)
+    {
+        Keep keep = GetKeepsById(keepId, userId);
+        keep.Views++;
+        _keepsRepository.UpdateKeep(keep);
+        return keep;
+    }
 
 
     internal Keep UpdateKeep(int keepId, string userId, Keep keepData)

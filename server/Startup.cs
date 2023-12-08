@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MySqlConnector;
+using server.Services;
 
 namespace KeeprFinal;
 
@@ -39,7 +40,13 @@ public class Startup
 
     services.AddScoped<VaultsRepository>();
     services.AddScoped<VaultsService>();
+
+    services.AddScoped<VaultKeepsRepository>();
+    services.AddScoped<VaultKeepsService>();
+
+
   }
+
 
   private void ConfigureCors(IServiceCollection services)
   {

@@ -2,6 +2,7 @@
 
 
 
+
 namespace KeeprFinal.Services;
 
 public class KeepsService
@@ -24,4 +25,20 @@ public class KeepsService
         List<Keep> keeps = _keepsRepository.GetKeeps();
         return keeps;
     }
+
+    internal Keep GetKeepsById(int keepId, string userId)
+    {
+        Keep keep = _keepsRepository.GetKeepsById(keepId);
+
+        if (keep == null)
+        {
+            throw new Exception($"{keepId} is an invalid ID");
+        }
+        return keep;
+    }
+
+    // internal Keep GetKeepsByIdAndAddVisits(int keepId, string userId)
+    // {GetKeepsById(keepId, userId);
+    // Keep.Visits++
+    // }
 }

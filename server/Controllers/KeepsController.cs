@@ -46,6 +46,22 @@ public class KeepsController : ControllerBase
         }
     }
 
+    [HttpGet("{keepId}")]
+    public async Task<ActionResult<Keep>> GetKeepById(int keepId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            // TODO after update change this so it counts up after visit
+            Keep keep = _keepsService.GetKeepsById(keepId, userInfo?.Id);
+            return Ok(keep);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 }
 
 

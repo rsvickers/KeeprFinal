@@ -1,6 +1,7 @@
 
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class KeepsRepository
@@ -45,8 +46,19 @@ public class KeepsRepository
         return keeps;
     }
 
+    internal Keep GetKeepsById(int keepId)
+    {
+        string sql = @"
+        SELECT 
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON keeps.creatorId = accounts.id
+        WHERE keeps.id = @keepId;";
 
-
+        Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { keepId }).FirstOrDefault();
+        return keep;
+    }
 
     private Keep KeepBuilder(Keep keep, Profile profile)
     {

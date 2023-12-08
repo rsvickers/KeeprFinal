@@ -30,4 +30,20 @@ public class VaultsController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet("{vaultId}")]
+    public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.GetVaultById(vaultId, userInfo?.Id);
+            return Ok(vault);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 }

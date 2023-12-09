@@ -1,6 +1,6 @@
 <template>
-    <div @click.prevent="openKeepDetails(keepProp?.id)" class="backgroundImg mb-5 mt-4  rounded text-light d-flex"
-        role="button" title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
+    <div @click.prevent="openKeepDetails(keepProp)" class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button"
+        title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
 
         <div class="d-flex justify-content-between align-items-end">
             <p class="p-2 box rounded mx-4">{{ keepProp?.name }}</p>
@@ -18,23 +18,25 @@ import { computed, reactive, onMounted } from 'vue';
 import { Keep } from '../models/Keep';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService.js'
+import { Modal } from 'bootstrap';
 
 export default {
     props: {
         keepProp: { type: Keep, required: true },
     },
-    setup() {
+    setup(props) {
 
-        watch(() => {
-            keepsService.clearAppState()
-        })
+        // watch(() => {
+        //     keepsService.clearAppState()
+        // })
         return {
             account: computed(() => AppState.account),
 
-            async openKeepDetails(keepId) {
+            async openKeepDetails(keepProp) {
                 try {
                     AppState.activeKeep = {}
-                    await keepsService.openKeepDetails(keepId)
+                    await keepsService.openKeepDetails(keepProp)
+                    Modal.getOrCreateInstance('#keepDetailsModal').show()
                 } catch (error) {
                     Pop.error(error)
                 }

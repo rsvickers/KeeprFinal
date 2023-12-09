@@ -1,9 +1,4 @@
 
-
-
-
-
-
 namespace KeeprFinal.Repositories;
 
 public class KeepsRepository
@@ -60,6 +55,20 @@ public class KeepsRepository
 
         Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { keepId }).FirstOrDefault();
         return keep;
+    }
+
+    internal List<Keep> GetKeepsByProfileId(string profileId)
+    {
+        string sql = @"
+        SELECT 
+        keeps.*,
+        accounts.*
+        FROM keeps
+        JOIN accounts ON keeps.creatorId = accounts.id
+        WHERE keeps.creatorId = @profileId;";
+
+        List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { profileId }).ToList();
+        return keeps;
     }
 
     internal void RemoveKeep(int keepId)

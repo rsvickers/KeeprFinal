@@ -24,6 +24,7 @@
                             </div>
                             <div>
                                 <h3>{{ keep?.name }}</h3>
+                                <p>{{ keep?.description }}</p>
                             </div>
                             <div>
                                 <p>Vaults</p>

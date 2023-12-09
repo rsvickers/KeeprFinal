@@ -17,6 +17,9 @@ import KeepCardComponent from '../components/KeepCardComponent.vue';
 
 export default {
   setup() {
+    onMounted(() => {
+      getKeeps();
+    });
     async function getKeeps() {
       try {
         await keepsService.getKeeps();
@@ -25,9 +28,6 @@ export default {
         Pop.error(error);
       }
     }
-    onMounted(() => {
-      getKeeps();
-    });
     return {
       account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps)

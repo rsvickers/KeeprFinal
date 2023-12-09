@@ -1,21 +1,36 @@
 
 
 
+using server.Models;
+
 namespace KeeprFinal.Services;
 
 public class VaultsService
 {
     private readonly VaultsRepository _vaultsRepository;
+    private readonly VaultKeepsRepository _vaultKeepsRepository;
 
-    public VaultsService(VaultsRepository vaultsRepository)
+    public VaultsService(VaultsRepository vaultsRepository, VaultKeepsRepository vaultKeepsRepository)
     {
         _vaultsRepository = vaultsRepository;
+        _vaultKeepsRepository = vaultKeepsRepository;
     }
 
     internal Vault CreateVault(Vault vaultData)
     {
         Vault vault = _vaultsRepository.CreateVault(vaultData);
         return vault;
+    }
+
+    internal List<KeepVaultModel> GetKeepsInVault(int vaultId, string userId)
+    {
+        Vault vault = GetVaultById(vaultId, userId);
+        if (vault.IsPrivate && (vault.CreatorId != userId || userId == null))
+        {
+            throw new Exception("NONE SHALL PASS 🧙‍♂️");
+        }
+        List<KeepVaultModel> keepVaultModels = _vaultKeepsRepository.GetKeepsInVault(vaultId, userId);
+        return keepVaultModels;
     }
 
     internal Vault GetVaultById(int vaultId, string userId)
@@ -35,7 +50,7 @@ public class VaultsService
 
     internal string RemoveVault(int vaultId, string userId)
     {
-        Vault vault = GetVaultById(vaultId, userId);
+        Vault vault = this.GetVaultById(vaultId, userId);
         if (vault.CreatorId != userId)
         {
             throw new Exception("NOT YOUR VAULT");
@@ -57,7 +72,7 @@ public class VaultsService
         vaultToUpdate.Name = vaultData.Name ?? vaultToUpdate.Name;
         vaultToUpdate.Description = vaultData.Description ?? vaultToUpdate.Description;
         vaultToUpdate.Img = vaultData.Img ?? vaultToUpdate.Img;
-        vaultToUpdate.IsPrivate = vaultData.IsPrivate ?? vaultToUpdate.IsPrivate;
+        // vaultToUpdate.IsPrivate = vaultData.IsPrivate ?? vaultToUpdate.IsPrivate;
 
         Vault vault = _vaultsRepository.UpdateVault(vaultToUpdate);
         return vault;

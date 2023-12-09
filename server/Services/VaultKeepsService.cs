@@ -1,5 +1,9 @@
 
 
+
+using Microsoft.Extensions.Configuration.UserSecrets;
+using server.Models;
+
 namespace server.Services;
 
 public class VaultKeepsService
@@ -26,4 +30,30 @@ public class VaultKeepsService
         VaultKeep vaultKeep = _vaultKeepsRepository.CreateVaultKeep(vaultKeepData);
         return vaultKeep;
     }
+
+    internal VaultKeep GetById(int vaultKeepId)
+    {
+        VaultKeep vaultKeep = _vaultKeepsRepository.GetById(vaultKeepId);
+        if (vaultKeep == null)
+        {
+            throw new Exception($"{vaultKeepId} is not a valid ID");
+        }
+        return vaultKeep;
+    }
+
+    internal string RemoveVaultKeep(int vaultKeepId, string userId)
+    {
+        VaultKeep vaultKeep = GetById(vaultKeepId);
+
+        if (userId != vaultKeep.CreatorId)
+        {
+            throw new Exception("NOT YOURS TO DELETE");
+        }
+        _vaultKeepsRepository.RemoveVaultKeep(vaultKeepId);
+        return $"{vaultKeepId} has been deleted";
+
+        // Vault vault = _vaultsService.GetVaultById(vaultKeep.VaultId);
+
+    }
+
 }

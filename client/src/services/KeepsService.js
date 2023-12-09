@@ -10,6 +10,10 @@ class KeepsService {
         const newKeeps = res.data.map((k) => new Keep(k))
         AppState.keeps = newKeeps
     }
+
+    clearAppState() {
+        AppState.activeKeep = null
+    }
 }
 
 export const keepsService = new KeepsService()

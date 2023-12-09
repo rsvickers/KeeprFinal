@@ -1,10 +1,11 @@
 <template>
-    <div class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button" title="click to see details"
-        :style="{ backgroundImage: `url(${keepProp?.img})` }">
+    <div @click.prevent="openKeepDetails(keepProp?.id)" class="backgroundImg mb-5 mt-4  rounded text-light d-flex"
+        role="button" title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
 
         <div class="d-flex justify-content-between align-items-end">
-            <p class="p-3 box rounded">{{ keepProp?.name }}</p>
-            <img class="avatar" :src="keepProp?.creator.picture" alt="">
+            <p class="p-2 box rounded mx-4">{{ keepProp?.name }}</p>
+            <img class="avatar rounded-circle" :src="keepProp?.creator.picture" alt="" role="button"
+                title="Go to there profile!">
         </div>
 
     </div>
@@ -15,13 +16,29 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Keep } from '../models/Keep';
+import Pop from '../utils/Pop';
+import { keepsService } from '../services/KeepsService.js'
+
 export default {
     props: {
         keepProp: { type: Keep, required: true },
     },
     setup() {
+
+        watch(() => {
+            keepsService.clearAppState()
+        })
         return {
             account: computed(() => AppState.account),
+
+            async openKeepDetails(keepId) {
+                try {
+                    AppState.activeKeep = {}
+                    await keepsService.openKeepDetails(keepId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
         }
     }
 };
@@ -42,5 +59,12 @@ export default {
     // border: solid rgb(255, 255, 255);
     box-shadow: 1px 1px rgba(215, 215, 215, 0.759);
     background-color: rgba(38, 38, 38, 0.421);
+}
+
+.avatar {
+    height: 8dvh;
+    width: 8dvh;
+    object-fit: cover;
+    object-position: center;
 }
 </style>

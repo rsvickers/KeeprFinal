@@ -29,6 +29,7 @@ export default {
       getKeeps();
     });
     return {
+      account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps)
     };
   },

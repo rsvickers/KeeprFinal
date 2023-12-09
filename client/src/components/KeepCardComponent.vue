@@ -34,7 +34,7 @@ export default {
 
             async openKeepDetails(keepProp) {
                 try {
-                    AppState.activeKeep = {}
+                    // AppState.activeKeep = {}
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
                 } catch (error) {

@@ -11,7 +11,7 @@ class KeepsService {
         AppState.keeps = newKeeps
     }
 
-    async openKeepDetails(keepProp) {
+    async openKeepDetails(Keep) {
         AppState.activeKeep = Keep
     }
 

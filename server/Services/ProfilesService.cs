@@ -1,6 +1,7 @@
 
 
 
+
 namespace KeeprFinal.Services;
 
 public class ProfilesService
@@ -27,5 +28,12 @@ public class ProfilesService
     {
         List<Keep> keeps = _keepsRepository.GetKeepsByProfileId(profileId);
         return keeps;
+    }
+
+    internal List<Vault> GetVaultsByProfileId(string profileId)
+    {
+        List<Vault> vaults = _vaultsRepository.GetVaultsByProfileId(profileId);
+        vaults = vaults.FindAll(vault => vault.IsPrivate == false);
+        return vaults;
     }
 }

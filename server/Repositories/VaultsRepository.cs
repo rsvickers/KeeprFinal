@@ -3,6 +3,7 @@
 
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class VaultsRepository
@@ -44,6 +45,20 @@ public class VaultsRepository
 
         Vault vault = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, new { vaultId }).FirstOrDefault();
         return vault;
+    }
+
+    internal List<Vault> GetVaultsByProfileId(string profileId)
+    {
+        string sql = @"
+        SELECT 
+        vaults.*,
+        accounts.*  
+        FROM vaults
+        JOIN accounts ON accounts.id = vaults.creatorId
+        WHERE vaults.creatorId = @profileId;";
+
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, new { profileId }).ToList();
+        return vaults;
     }
 
     internal void RemoveVault(int vaultId)

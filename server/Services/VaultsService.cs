@@ -48,6 +48,7 @@ public class VaultsService
         return vault;
     }
 
+
     internal string RemoveVault(int vaultId, string userId)
     {
         Vault vault = this.GetVaultById(vaultId, userId);
@@ -76,5 +77,10 @@ public class VaultsService
 
         Vault vault = _vaultsRepository.UpdateVault(vaultToUpdate);
         return vault;
+    }
+    internal List<Vault> GetVaultsByAccount(string accountId)
+    {
+        List<Vault> vaults = _vaultsRepository.GetVaultsByAccount(accountId);
+        return vaults;
     }
 }

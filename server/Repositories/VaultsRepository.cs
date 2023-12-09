@@ -4,6 +4,7 @@
 
 
 
+
 namespace KeeprFinal.Repositories;
 
 public class VaultsRepository
@@ -47,6 +48,7 @@ public class VaultsRepository
         return vault;
     }
 
+
     internal List<Vault> GetVaultsByProfileId(string profileId)
     {
         string sql = @"
@@ -58,6 +60,19 @@ public class VaultsRepository
         WHERE vaults.creatorId = @profileId;";
 
         List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, new { profileId }).ToList();
+        return vaults;
+    }
+    internal List<Vault> GetVaultsByAccount(string accountId)
+    {
+        string sql = @"
+        SELECT 
+        vaults.*,
+        accounts.*  
+        FROM vaults
+        JOIN accounts ON accounts.id = vaults.creatorId
+        WHERE vaults.creatorId = @accountId;";
+
+        List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, new { accountId }).ToList();
         return vaults;
     }
 

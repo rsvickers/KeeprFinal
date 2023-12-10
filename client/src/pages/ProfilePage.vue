@@ -31,7 +31,7 @@ import Pop from '../utils/Pop';
 import { profilesService } from '../services/ProfilesService'
 import KeepCardComponent from '../components/KeepCardComponent.vue';
 import VaultCardComponent from '../components/VaultCardComponent.vue'
-import { keepsService } from '../services/KeepsService';
+
 
 export default {
     setup() {

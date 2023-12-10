@@ -7,7 +7,7 @@
                 <img class="profile" :src="profile.picture" alt="" title="profile picture">
             </div>
             <div>
-                <p>Vaults || Keeps</p>
+                <p>Vaults || {{ keeps.length }} Keeps</p>
 
             </div>
             <div v-for="keep in keeps" :key="keep.id" class="col-md-3 col-6">

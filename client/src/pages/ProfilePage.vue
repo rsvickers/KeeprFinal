@@ -10,11 +10,11 @@
                 <p>{{ vaults.length }} Vaults || {{ keeps.length }} Keeps</p>
 
             </div>
-            <h3>Vaults</h3>
+            <h2>Vaults</h2>
             <div v-for="vault in vaults" :key="vault.id" class="col-md-3 col-6">
                 <VaultCardComponent :vaultProp="vault" />
             </div>
-            <h3>Keeps</h3>
+            <h2>Keeps</h2>
             <div v-for="keep in keeps" :key="keep.id" class="col-md-3 col-6">
                 <KeepCardComponent :keepProp="keep" />
             </div>

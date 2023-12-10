@@ -1,6 +1,6 @@
 <template>
     <div class="component">
-
+        <!-- TODO make this look pretty and then make it clickable to go on a details page -->
         <p> {{ vaultProp.name }}</p>
     </div>
 </template>

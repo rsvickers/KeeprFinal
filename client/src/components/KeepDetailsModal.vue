@@ -8,33 +8,43 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div> -->
                 <div class="modal-body modal-xl">
-                    <section class="row">
-                        <div class="col-6">
-                            <img class="img-fluid" :src="keep?.img" alt="">
-                        </div>
-                        <div class="col-6 d-flex flex-column justify-content-between text-center">
-                            <div>
-                                <!-- TODO add the view and kept count -->
+                    <div class="container">
+
+                        <section class="row">
+                            <div class="col-6">
+                                <img class="img-fluid" :src="keep?.img" alt="">
+                            </div>
+                            <div class="col-6 d-flex flex-column justify-content-between text-center">
                                 <div>
-                                    <p><i class="mdi mdi-eye"></i>0</p>
+                                    <!-- TODO add the view and kept count -->
+                                    <div>
+                                        <p><i class="mdi mdi-eye"></i>0</p>
+                                    </div>
+                                    <div>
+                                        <p><i class="mdi mdi-alpha-k-box-outline"></i> 0</p>
+                                    </div>
+                                    <div>
+                                        <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
+                                                class="mdi mdi-delete-circle text-danger fs-3" title="delete keep"
+                                                role="button" type="button"></i></p>
+                                    </div>
                                 </div>
                                 <div>
-                                    <p><i class="mdi mdi-alpha-k-box-outline"></i> 0</p>
+                                    <h3>{{ keep?.name }}</h3>
+                                    <p>{{ keep?.description }}</p>
+                                </div>
+                                <div>
+                                    <p>Vaults</p>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <!-- <router-link :to="{ name: 'Profile', params: { profileId: keep?.creator.id } }"> -->
+                                    <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
+                                        title="Go to there profile!">
+                                    <p>{{ keep?.creator.name }}</p>
+                                    <!-- </router-link> -->
                                 </div>
                             </div>
-                            <div>
-                                <h3>{{ keep?.name }}</h3>
-                                <p>{{ keep?.description }}</p>
-                            </div>
-                            <div>
-                                <p>Vaults</p>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
-                                    title="Go to there profile!">
-                                <p>{{ keep?.creator.name }}</p>
-                            </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </div>
                 <div>
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -48,10 +58,33 @@
 <script>
 import { AppState } from '../AppState.js';
 import { computed, reactive, onMounted } from 'vue';
+import Pop from '../utils/Pop';
+import { keepsService } from '../services/KeepsService';
+import { useRouter } from 'vue-router';
+import { Modal } from 'bootstrap';
 export default {
     setup() {
+        const router = useRouter()
         return {
-            keep: computed(() => AppState.activeKeep)
+            keep: computed(() => AppState.activeKeep),
+            account: computed(() => AppState.account),
+
+            async removeKeep() {
+                try {
+                    const keep = AppState.activeKeep;
+                    const yes = await Pop.confirm(`Are you sure you want to delete ${keep.name}`)
+                    if (!yes) {
+                        return
+                    }
+                    await keepsService.removeKeep(keep.id)
+                    Modal.getInstance('#keepDetailsModal').hide()
+                    Pop.success(`${keep.name} has been deleted.`)
+                    AppState.activeKeep = null
+                    // router.push({ name: 'Home' });
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
         }
     }
 };

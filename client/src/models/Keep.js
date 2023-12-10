@@ -1,9 +1,7 @@
-import { RepoItem } from "./RepoItem.js"
 
-export class Keep extends RepoItem {
+export class Keep {
     constructor(data) {
-        super(data)
-        // this.id = data.id
+        this.id = data.id
         this.name = data.name
         this.description = data.description
         this.img = data.img

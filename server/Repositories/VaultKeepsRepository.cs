@@ -57,14 +57,14 @@ public class VaultKeepsRepository
         WHERE vaultKeeps.vaultId = @vaultId
         ;";
 
-        List<KeepVaultModel> foundKeeps = _db.Query<KeepVaultModel, VaultKeep, Vault, Profile, KeepVaultModel>(sql, (keepVaultModel, vaultKeep, vault, profile) =>
+        List<KeepVaultModel> keeps = _db.Query<KeepVaultModel, VaultKeep, Vault, Profile, KeepVaultModel>(sql, (keepVaultModel, vaultKeep, vault, profile) =>
         {
             keepVaultModel.VaultKeepId = vaultKeep.Id;
             vault.Creator = profile;
             keepVaultModel.Creator = profile;
             return keepVaultModel;
         }, new { vaultId }).ToList();
-        return foundKeeps;
+        return keeps;
     }
 
     internal void RemoveVaultKeep(int vaultKeepId)

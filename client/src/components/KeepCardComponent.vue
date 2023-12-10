@@ -2,10 +2,13 @@
     <div @click.prevent="openKeepDetails(keepProp)" class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button"
         title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
 
-        <div class="d-flex justify-content-between align-items-end">
-            <p class="p-2 box rounded mx-4">{{ keepProp?.name }}</p>
+        <div class=" d-flex justify-content-between align-items-end">
+            <p class="p-2 box rounded">{{ keepProp?.name }}</p>
+            <!-- TODO ask how the form doesnt show up when I click on  -->
+            <!-- <router-link :to="{ name: 'Profile', params: { profileId: keepProp.creator.id } }"> -->
             <img class="avatar rounded-circle" :src="keepProp?.creator.picture" alt="" role="button"
                 title="Go to there profile!">
+            <!-- </router-link> -->
         </div>
 
     </div>
@@ -40,7 +43,9 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
-            }
+            },
+
+
         }
     }
 };

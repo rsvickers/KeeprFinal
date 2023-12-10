@@ -3,7 +3,7 @@
         <section class="row justify-content-center">
             <div class="col-10 col-md-6 text-center">
                 <!-- TODO add coverImg after allowing update to profile -->
-                <!-- <img :src="profile.coverImg" alt=""> -->
+                <img :src="profile.coverImg" alt="">
                 <img class="profile" :src="profile.picture" alt="" title="profile picture">
             </div>
             <div>

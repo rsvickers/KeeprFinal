@@ -1,8 +1,11 @@
 <template>
   <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <img :src="account.coverImg" alt="">
+    <img class="rounded-circle" :src="account.picture" alt="" />
+    <p>{{ account.name }}</p>
+    <p><i onclick.prevent="update" class="mdi mdi-dots-horizontal fs-3" role="button" title="edit account"
+        data-bs-toggle="modal" data-bs-target="#editAccountModal"></i></p>
+
   </div>
 </template>
 

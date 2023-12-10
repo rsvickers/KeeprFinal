@@ -53,7 +53,7 @@ export default {
                     const keepData = editable.value
                     await keepsService.createKeep(keepData)
                     Pop.success('Keep has been created!')
-                    editable.value = {}
+                    // editable.value = {}
                     Modal.getOrCreateInstance('#createKeepModal').hide()
                     // Modal.getOrCreateInstance(#keepDetailsModal).show()
                     editable.value = {}

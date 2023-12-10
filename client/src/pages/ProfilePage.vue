@@ -7,9 +7,14 @@
                 <img class="profile" :src="profile.picture" alt="" title="profile picture">
             </div>
             <div>
-                <p>Vaults || {{ keeps.length }} Keeps</p>
+                <p>{{ vaults.length }} Vaults || {{ keeps.length }} Keeps</p>
 
             </div>
+            <h3>Vaults</h3>
+            <div v-for="vault in vaults" :key="vault.id" class="col-md-3 col-6">
+                <VaultCardComponent :vaultProp="vault" />
+            </div>
+            <h3>Keeps</h3>
             <div v-for="keep in keeps" :key="keep.id" class="col-md-3 col-6">
                 <KeepCardComponent :keepProp="keep" />
             </div>
@@ -25,6 +30,7 @@ import { computed, reactive, onMounted, watchEffect } from 'vue';
 import Pop from '../utils/Pop';
 import { profilesService } from '../services/ProfilesService'
 import KeepCardComponent from '../components/KeepCardComponent.vue';
+import VaultCardComponent from '../components/VaultCardComponent.vue'
 import { keepsService } from '../services/KeepsService';
 
 export default {
@@ -33,6 +39,7 @@ export default {
         onMounted(() => {
             getProfileById();
             getKeepsByProfile();
+            getVaultsByProfile();
         });
         async function getProfileById() {
             try {
@@ -53,12 +60,22 @@ export default {
             }
         }
 
+        async function getVaultsByProfile() {
+            try {
+                const profileId = route.params.profileId;
+                await profilesService.getVaultsByProfile(profileId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+
         return {
             profile: computed(() => AppState.activeProfile),
             keeps: computed(() => AppState.keeps),
+            vaults: computed(() => AppState.vaults)
         };
     },
-    components: { KeepCardComponent }
+    components: { KeepCardComponent, VaultCardComponent }
 };
 </script>
 

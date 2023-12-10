@@ -7,7 +7,7 @@
                     <h5 class="modal-title" id="createKeepModal">Add your keep</h5>
                 </div>
                 <div class="modal-body">
-                    <form @submit="createKeep()">
+                    <form @submit.prevent="createKeep()">
                         <div class="col-12">
                             <label for="name">Name...</label>
                             <input v-model="editable.name" type="text" class="form-control" max-length="255" id="name"
@@ -23,7 +23,7 @@
                             <textarea v-model="editable.description" type="text" class="form-control" id="description"
                                 maxlength="1000" rows="4" required></textarea>
                         </div>
-                        <div class="col-4 text-center mt-3">
+                        <div class="modal-footer col-4 text-center mt-3">
                             <button class="btn btn-success" type="submit" title="Create The Keep">Create Keep</button>
                         </div>
                     </form>

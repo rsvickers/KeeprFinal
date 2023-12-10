@@ -40,6 +40,7 @@ export default {
                     // AppState.activeKeep = {}
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
+                    // this.removeKeep(keepId)
                 } catch (error) {
                     Pop.error(error)
                 }

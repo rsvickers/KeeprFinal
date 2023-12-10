@@ -10,7 +10,7 @@
                 <div class="modal-body modal-xl">
                     <div class="container">
 
-                        <section class="row">
+                        <section v-if="keep?.id" class="row">
                             <div class="col-6">
                                 <img class="img-fluid" :src="keep?.img" alt="">
                             </div>
@@ -36,11 +36,11 @@
                                 <div>
                                     <p>Vaults</p>
                                     <button type="button" class="btn btn-primary">Save changes</button>
-                                    <!-- <router-link :to="{ name: 'Profile', params: { profileId: keep?.creator.id } }"> -->
-                                    <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
-                                        title="Go to there profile!">
-                                    <p>{{ keep?.creator.name }}</p>
-                                    <!-- </router-link> -->
+                                    <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
+                                        <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
+                                            title="Go to there profile!">
+                                        <p>{{ keep?.creator.name }}</p>
+                                    </router-link>
                                 </div>
                             </div>
                         </section>
@@ -80,7 +80,7 @@ export default {
                     Modal.getInstance('#keepDetailsModal').hide()
                     Pop.success(`${keep.name} has been deleted.`)
                     AppState.activeKeep = null
-                    // router.push({ name: 'Home' });
+                    router.push({ name: 'Home' });
                 } catch (error) {
                     Pop.error(error)
                 }

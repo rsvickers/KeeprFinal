@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <div class="container-fluid">
         <section class="row">
             <div class="col-10 col-md-6">
@@ -41,4 +41,4 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style> -->
+<style lang="scss" scoped></style>

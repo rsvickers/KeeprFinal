@@ -1,7 +1,12 @@
 <template>
     <div v-if="vault" class="container">
+        <div class="backgroundImg mb-5 mt-4 col-12 col-md-8 rounded text-light d-flex justify-content-center"
+            title="Vault Name" :style="{ backgroundImage: `url(${vault?.img})` }">
+            <div class="d-flex align-self-center justify-content-center">
+                <h3 class="p-3 box rounded">{{ vault.name }}</h3>
+            </div>
+        </div>
 
-        <p>{{ vault.name }}</p>
     </div>
 </template>
 
@@ -46,4 +51,25 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.backgroundImg {
+    height: 20rem;
+    width: 50%;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 1px 1px 15px;
+}
+
+.box {
+    // border: solid rgb(255, 255, 255);
+    box-shadow: 1px 1px rgba(215, 215, 215, 0.759);
+    background-color: rgba(38, 38, 38, 0.421);
+}
+
+.avatar {
+    height: 8dvh;
+    width: 8dvh;
+    object-fit: cover;
+    object-position: center;
+}
+</style>

@@ -1,12 +1,14 @@
 <template>
-    <router-link :to="{ name: 'VaultDetails', params: { vaultId: vaultProp.id } }" title="open the vault page">
-        <div class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button" title="click to see details"
-            :style="{ backgroundImage: `url(${vaultProp?.img})` }">
-            <div class="d-flex align-items-end">
-                <p class="p-2 box rounded"> {{ vaultProp.name }}</p>
+    <div>
+        <router-link :to="{ name: 'VaultDetails', params: { vaultId: vaultProp?.id } }" title="open the vault page">
+            <div class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button" title="click to see details"
+                :style="{ backgroundImage: `url(${vaultProp?.img})` }">
+                <div class="d-flex align-items-end">
+                    <p class="p-2 box rounded"> {{ vaultProp.name }}</p>
+                </div>
             </div>
-        </div>
-    </router-link>
+        </router-link>
+    </div>
 </template>
 
 
@@ -14,14 +16,17 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Vault } from '../models/Vault';
+import { useRoute, useRouter } from 'vue-router';
 export default {
     props: {
         vaultProp: { type: Vault, required: true },
     },
     setup() {
+
         return {
             account: computed(() => AppState.account),
-            vaults: computed(() => AppState.vaults)
+            // vaults: computed(() => AppState.vaults),
+
         }
     }
 };

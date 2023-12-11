@@ -6,7 +6,7 @@ import { api } from "./AxiosService"
 class VaultsService {
     async createVault(vaultData) {
         const res = await api.post('api/vaults', vaultData)
-        logger.log("Created a vault", res.data)
+        // logger.log("Created a vault", res.data)
         const newVault = new Vault(res.data)
         AppState.vaults.push(newVault)
         return newVault
@@ -14,9 +14,15 @@ class VaultsService {
 
     async getVaultById(vaultId) {
         const res = await api.get(`api/vaults/${vaultId}`)
-        logger.log('VAULTid', res.data)
+        // logger.log('VAULTid', res.data)
         const newVault = new Vault(res.data)
         AppState.activeVault = newVault
+    }
+
+    async removeVault(vaultId) {
+        const res = await api.delete(`api/vaults/${vaultId}`)
+        logger.log('Removed Vault', res.data)
+        AppState.activeVault = null
     }
 
     clearAppState() {

@@ -5,6 +5,7 @@
                 :style="{ backgroundImage: `url(${vaultProp?.img})` }">
                 <div class="d-flex align-items-end">
                     <p class="p-2 box rounded"> {{ vaultProp.name }}</p>
+                    <p v-if="vaultProp.isPrivate"><i class="mdi mdi-lock fs-3 p-3"></i></p>
                 </div>
             </div>
         </router-link>

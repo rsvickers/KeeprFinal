@@ -80,7 +80,7 @@ export default {
                     Modal.getInstance('#keepDetailsModal').hide()
                     Pop.success(`${keep.name} has been deleted.`)
                     AppState.activeKeep = null
-                    router.push({ name: 'Home' });
+                    // keepsService.getKeeps()
                 } catch (error) {
                     Pop.error(error)
                 }

@@ -18,7 +18,7 @@
                                 <div>
                                     <!-- TODO add the view and kept count -->
                                     <div>
-                                        <p><i class="mdi mdi-eye"></i>0</p>
+                                        <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
                                     </div>
                                     <div>
                                         <p><i class="mdi mdi-alpha-k-box-outline"></i> 0</p>

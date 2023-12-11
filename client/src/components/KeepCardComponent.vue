@@ -38,6 +38,7 @@ export default {
             async openKeepDetails(keepProp) {
                 try {
                     // AppState.activeKeep = {}
+                    // keepProp.views++
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
                     // this.removeKeep(keepId)

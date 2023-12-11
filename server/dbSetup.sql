@@ -9,7 +9,7 @@ CREATE TABLE
         coverImg VARCHAR(2000) NOT NULL
     ) default charset utf8 COMMENT '';
 
-DROP TABLE accounts;
+-- DROP TABLE accounts CASCADE;
 
 CREATE TABLE
     IF NOT EXISTS keeps(

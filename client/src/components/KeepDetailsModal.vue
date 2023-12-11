@@ -42,7 +42,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li v-for="vault in vaults" :key="vault.id">
-                                            <button @click="saveKeepToVault(vault.id)" type="button"
+                                            <button @click="createKeepVault(vault.id)" type="button"
                                                 :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
                                                     vault.name }}</button>
                                         </li>
@@ -78,6 +78,7 @@ import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
 import { useRouter } from 'vue-router';
 import { Modal } from 'bootstrap';
+import { vaultKeepsService } from '../services/VaultKeepsService';
 export default {
     setup() {
         const router = useRouter()
@@ -103,9 +104,12 @@ export default {
                 }
             },
 
-            async saveKeepToVault(vaultId) {
+            async createKeepVault(vaultId) {
                 try {
-                    await keepsService.saveKeepToVault(vaultId, this.keep.id)
+                    const keepId = AppState.activeKeep.id
+                    // const vaultId = AppState.vaults.id
+                    const vaultKeepData = { vaultId, keepId }
+                    await vaultKeepsService.createKeepVault(vaultKeepData)
                     Pop.success("Saved this keep!")
                 } catch (error) {
                     Pop.error(error)

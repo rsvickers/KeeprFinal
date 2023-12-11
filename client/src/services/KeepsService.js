@@ -28,10 +28,6 @@ class KeepsService {
         return newKeep
     }
 
-    async saveKeepToVault(vaultId, keepId) {
-
-    }
-
     async removeKeep(keepId) {
         const res = api.delete(`api/keeps/${keepId}`)
         AppState.activeKeep = null

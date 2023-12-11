@@ -33,6 +33,8 @@
                                     <h3>{{ keep?.name }}</h3>
                                     <p>{{ keep?.description }}</p>
                                 </div>
+
+                                <!-- TODO work on dropdown to save vaults and such..! -->
                                 <div v-if="account.id == keep?.creatorId">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,6 +48,9 @@
                                         </li>
                                     </ul>
                                 </div>
+
+
+
                                 <div>
                                     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
                                         <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
@@ -96,8 +101,18 @@ export default {
                 } catch (error) {
                     Pop.error(error)
                 }
+            },
+
+            async saveKeepToVault(vaultId) {
+                try {
+                    await keepsService.saveKeepToVault(vaultId, this.keep.id)
+                    Pop.success("Saved this keep!")
+                } catch (error) {
+                    Pop.error(error)
+                }
             }
         }
+
     }
 };
 </script>

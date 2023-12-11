@@ -2,8 +2,7 @@
     <div v-if="vault" class="container">
         <section class="row">
 
-            <div @click.prevent="openKeepDetails(keepProp)"
-                class="backgroundImg mb-5 mt-4 col-12 col-md-8 rounded text-light d-flex flex-column justify-content-center"
+            <div class="backgroundImg mb-5 mt-4 col-12 col-md-8 rounded text-light d-flex flex-column justify-content-center"
                 title="Vault Name" :style="{ backgroundImage: `url(${vault.img})` }">
 
                 <div>
@@ -18,8 +17,9 @@
                 </div>
 
             </div>
-
-            <!-- {{ keeps }} -->
+            <div>
+                <p class="box rounded-pill w-25 text-center text-light">Keeps {{ keeps.length }}</p>
+            </div>
 
 
         </section>

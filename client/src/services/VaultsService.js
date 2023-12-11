@@ -25,6 +25,8 @@ class VaultsService {
         AppState.activeVault = null
     }
 
+
+
     clearAppState() {
         AppState.activeVault = null
     }

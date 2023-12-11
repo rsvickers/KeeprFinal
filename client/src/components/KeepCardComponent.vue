@@ -6,8 +6,8 @@
             <p class="p-2 box rounded">{{ keepProp?.name }}</p>
             <!-- TODO ask how the form doesnt show up when I click on  -->
             <!-- <router-link :to="{ name: 'Profile', params: { profileId: keepProp.creator.id } }"> -->
-            <img class="avatar rounded-circle" :src="keepProp?.creator.picture" alt="" role="button"
-                title="Go to there profile!">
+            <img class="avatar rounded-circle" :src="keepProp?.creator.picture || keepProp?.creator.img" alt=""
+                role="button" :title="`${keepProp?.creator.name}`">
             <!-- </router-link> -->
         </div>
 
@@ -38,9 +38,9 @@ export default {
             async openKeepDetails(keepProp) {
                 try {
                     // AppState.activeKeep = {}
-                    // keepProp.views++
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
+                    keepProp.views++
                     // this.removeKeep(keepId)
                 } catch (error) {
                     Pop.error(error)

@@ -57,6 +57,7 @@ export default {
                     await accountService.editAccount(editable.value)
                     editable.value = {}
                     Modal.getOrCreateInstance('#editAccountModal').hide()
+                    Pop.success('Edited your account!')
                 } catch (error) {
                     Pop.error(error)
                 }

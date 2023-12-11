@@ -21,7 +21,7 @@
                                         <p><i class="mdi mdi-eye"></i>{{ keep.views }}</p>
                                     </div>
                                     <div>
-                                        <p><i class="mdi mdi-alpha-k-box-outline"></i> 0</p>
+                                        <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
                                     </div>
                                     <div>
                                         <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
@@ -33,14 +33,25 @@
                                     <h3>{{ keep?.name }}</h3>
                                     <p>{{ keep?.description }}</p>
                                 </div>
+                                <div v-if="account.id == keep?.creatorId">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Vaults
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="vault in vaults" :key="vault.id">
+                                            <button @click="saveKeepToVault(vault.id)" type="button"
+                                                :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
+                                                    vault.name }}</button>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div>
-                                    <p>Vaults</p>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
                                         <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
                                             title="Go to there profile!">
-                                        <p>{{ keep?.creator.name }}</p>
                                     </router-link>
+                                    <p>{{ keep?.creator.name }}</p>
                                 </div>
                             </div>
                         </section>
@@ -67,6 +78,7 @@ export default {
         const router = useRouter()
         return {
             keep: computed(() => AppState.activeKeep),
+            vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
 
             async removeKeep() {
@@ -80,7 +92,7 @@ export default {
                     Modal.getInstance('#keepDetailsModal').hide()
                     Pop.success(`${keep.name} has been deleted.`)
                     AppState.activeKeep = null
-                    // keepsService.getKeeps()
+                    router.push({ name: 'Home' });
                 } catch (error) {
                     Pop.error(error)
                 }

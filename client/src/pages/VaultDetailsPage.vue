@@ -2,8 +2,9 @@
     <div v-if="vault" class="container">
         <section class="row">
 
-            <div class="backgroundImg mb-5 mt-4 col-12 col-md-8 rounded text-light d-flex flex-column justify-content-center"
-                title="Vault Name" :style="{ backgroundImage: `url(${vault?.img})` }">
+            <div @click.prevent="openKeepDetails(keepProp)"
+                class="backgroundImg mb-5 mt-4 col-12 col-md-8 rounded text-light d-flex flex-column justify-content-center"
+                title="Vault Name" :style="{ backgroundImage: `url(${vault.img})` }">
 
                 <div>
                     <h3 class="p-3 box rounded text-center">{{ vault.name }}</h3>
@@ -18,6 +19,14 @@
 
             </div>
 
+            <!-- {{ keeps }} -->
+
+
+        </section>
+        <section class="row">
+            <div v-for="keep in keeps" :key="keep.id" class="col-md-6 col-12">
+                <KeepCardComponent :keepProp="keep" />
+            </div>
         </section>
     </div>
 
@@ -38,50 +47,62 @@ import { computed, reactive, onMounted, watch } from 'vue';
 import { vaultsService } from '../services/VaultsService';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
+import { keepsService } from '../services/KeepsService';
+import KeepCardComponent from '../components/KeepCardComponent.vue';
 export default {
     setup() {
         const route = useRoute();
         const router = useRouter();
-        const watchableVaultId = computed(() => route.params.vaultId)
-
+        const watchableVaultId = computed(() => route.params.vaultId);
         async function getVaultById() {
             try {
                 const vaultId = route.params.vaultId;
-                logger.log('VAULT ID', vaultId)
-                await vaultsService.getVaultById(vaultId)
-            } catch (error) {
-                Pop.error(error)
+                logger.log('VAULT ID', vaultId);
+                await vaultsService.getVaultById(vaultId);
+            }
+            catch (error) {
+                Pop.error(error);
                 if (error.response.data.includes('🧙‍♂️')) {
-                    router.push({ name: 'Home' })
+                    router.push({ name: 'Home' });
                 }
             }
         }
-
-
+        async function getKeepsInVault() {
+            try {
+                const vaultId = route.params.vaultId;
+                await keepsService.getKeepsInVault(vaultId);
+            }
+            catch (error) {
+                Pop.error(error);
+            }
+        }
         watch(watchableVaultId, () => {
             vaultsService.clearAppState();
             getVaultById();
+            getKeepsInVault();
         }, { immediate: true });
         return {
             vault: computed(() => AppState.activeVault),
             account: computed(() => AppState.account),
-
+            keeps: computed(() => AppState.vaultKeeps),
             async removeVault() {
                 try {
                     const vault = AppState.activeVault;
-                    const yes = await Pop.confirm("Are you sure you want to delete this vault?")
+                    const yes = await Pop.confirm("Are you sure you want to delete this vault?");
                     if (!yes) {
                         return;
                     }
-                    await vaultsService.removeVault(vault.id)
-                    Pop.success("Vault has been deleted")
+                    await vaultsService.removeVault(vault.id);
+                    Pop.success("Vault has been deleted");
                     router.push({ name: 'Home' });
-                } catch (error) {
-                    Pop.error(error)
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             }
-        }
-    }
+        };
+    },
+    components: { KeepCardComponent }
 };
 </script>
 

@@ -1,8 +1,6 @@
 
 
 
-using server.Models;
-
 namespace KeeprFinal.Services;
 
 public class VaultsService
@@ -51,7 +49,7 @@ public class VaultsService
 
     internal string RemoveVault(int vaultId, string userId)
     {
-        Vault vault = this.GetVaultById(vaultId, userId);
+        Vault vault = GetVaultById(vaultId, userId);
         if (vault.CreatorId != userId)
         {
             throw new Exception("NOT YOUR VAULT");

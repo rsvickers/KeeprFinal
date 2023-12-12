@@ -16,6 +16,7 @@ class KeepsService {
         const res = await api.get(`api/vaults/${vaultId}/keeps`)
         logger.log('GOT KEEPS IN VAULTS', res.data)
         const newVaultKeeps = res.data.map((vk) => new VaultKeep(vk))
+        // AppState.activeKeep.kept++
         AppState.vaultKeeps = newVaultKeeps
 
     }

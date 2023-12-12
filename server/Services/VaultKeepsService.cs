@@ -1,10 +1,5 @@
 
-
-
-using Microsoft.Extensions.Configuration.UserSecrets;
-using server.Models;
-
-namespace server.Services;
+namespace KeeprFinal.Services;
 
 public class VaultKeepsService
 {
@@ -26,8 +21,9 @@ public class VaultKeepsService
         {
             throw new Exception("NOT YOUR VAULT");
         }
-
+        // Keep keep = _keepsService.GetKeepsById
         VaultKeep vaultKeep = _vaultKeepsRepository.CreateVaultKeep(vaultKeepData);
+
         return vaultKeep;
     }
 
@@ -55,5 +51,10 @@ public class VaultKeepsService
         // Vault vault = _vaultsService.GetVaultById(vaultKeep.VaultId);
 
     }
+
+    // internal VaultKeep GetKepts(VaultKeep vaultKeepData)
+    // {
+    //     VaultKeep vaultKeep = 
+    // }
 
 }

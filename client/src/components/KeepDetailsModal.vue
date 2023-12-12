@@ -15,20 +15,20 @@
                                 <img class="img-fluid" :src="keep?.img" alt="">
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-between text-center">
-                                <div @click-="updateKeep()">
-                                    <!-- TODO add the view and kept count -->
-                                    <div>
-                                        <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
-                                    </div>
-                                    <div>
-                                        <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
-                                    </div>
-                                    <div>
-                                        <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
-                                                class="mdi mdi-delete-circle text-danger fs-3" title="delete keep"
-                                                role="button" type="button"></i></p>
-                                    </div>
+                                <!-- <div @click-="updateKeep()"> -->
+                                <!-- TODO add the view and kept count -->
+                                <div>
+                                    <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
                                 </div>
+                                <div>
+                                    <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept.length }}</p>
+                                </div>
+                                <div>
+                                    <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
+                                            class="mdi mdi-delete-circle text-danger fs-3" title="delete keep" role="button"
+                                            type="button"></i></p>
+                                </div>
+                                <!-- </div> -->
                                 <div>
                                     <h3>{{ keep?.name }}</h3>
                                     <p>{{ keep?.description }}</p>

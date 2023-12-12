@@ -1,5 +1,5 @@
 
-namespace server.Models
+namespace KeeprFinal.Models
 {
     public class KeepVaultModel : Keep
     {

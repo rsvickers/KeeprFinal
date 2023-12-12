@@ -15,10 +15,10 @@
                                 <img class="img-fluid" :src="keep?.img" alt="">
                             </div>
                             <div class="col-6 d-flex flex-column justify-content-between text-center">
-                                <div>
+                                <div @click-="updateKeep()">
                                     <!-- TODO add the view and kept count -->
                                     <div>
-                                        <p><i class="mdi mdi-eye"></i>{{ keep.views }}</p>
+                                        <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
                                     </div>
                                     <div>
                                         <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
@@ -88,7 +88,7 @@
 
 <script>
 import { AppState } from '../AppState.js';
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive, onMounted, watch } from 'vue';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
 import { useRouter } from 'vue-router';
@@ -96,12 +96,27 @@ import { Modal } from 'bootstrap';
 import { vaultKeepsService } from '../services/VaultKeepsService';
 export default {
     setup() {
-        const router = useRouter()
+        const router = useRouter();
+        // watch(() => {
+        //     keepsService.clearAppState();
+        // }, { immediate: true })
         return {
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
             isKeptInVault: computed(() => AppState.vaultKeeps.find((vaultKeep) => vaultKeep.id == AppState.account.id)),
+
+            async updateKeep() {
+                try {
+                    const keep = AppState.activeKeep;
+                    // const keepData =
+                    await keepsService.updateKeep(keep.id)
+                } catch (error) {
+                    Pop.error(error)
+                }
+
+            },
+
 
             async removeKeep() {
                 try {
@@ -113,7 +128,9 @@ export default {
                     await keepsService.removeKeep(keep.id)
                     Modal.getInstance('#keepDetailsModal').hide()
                     Pop.success(`${keep.name} has been deleted.`)
-                    AppState.activeKeep = null
+                    keepsService.clearAppState()
+
+                    // AppState.activeKeep = null
                     router.push({ name: 'Home' });
                 } catch (error) {
                     Pop.error(error)

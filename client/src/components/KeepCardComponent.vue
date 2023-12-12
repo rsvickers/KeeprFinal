@@ -1,6 +1,7 @@
 <template>
     <div @click.prevent="openKeepDetails(keepProp)" class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button"
         title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
+        <!-- <div @click="updateKeep()"> -->
 
         <div class=" d-flex justify-content-between align-items-end">
             <p class="p-2 box rounded">{{ keepProp?.name }}</p>
@@ -10,6 +11,7 @@
                 role="button" :title="`${keepProp?.creator.name}`">
             <!-- </router-link> -->
         </div>
+        <!-- </div> -->
 
     </div>
 </template>
@@ -35,12 +37,24 @@ export default {
         return {
             account: computed(() => AppState.account),
 
+            async updateKeep() {
+                try {
+                    const keep = AppState.activeKeep
+                    // const keepData =
+                    await keepsService.updateKeep(keep.id)
+                } catch (error) {
+                    Pop.error(error)
+                }
+
+            },
+
             async openKeepDetails(keepProp) {
                 try {
                     // AppState.activeKeep = {}
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
-                    keepProp.views++
+                    this.updateKeep()
+                    // keepProp.views++
                     // this.removeKeep(keepId)
                 } catch (error) {
                     Pop.error(error)

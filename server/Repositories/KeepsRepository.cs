@@ -14,8 +14,8 @@ public class KeepsRepository
     {
         string sql = @"
         INSERT INTO
-        keeps (name, description, img, views,creatorId)
-        VALUES (@Name, @Description, @Img, @Views, @CreatorId);
+        keeps (name, description, img, views, kept, creatorId)
+        VALUES (@Name, @Description, @Img, @Views, @Kept, @CreatorId);
 
         SELECT 
         keeps.*,

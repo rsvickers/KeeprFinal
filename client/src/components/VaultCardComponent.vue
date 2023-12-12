@@ -1,5 +1,16 @@
 <template>
-    <div>
+    <div v-if="vaultProp?.creatorId == account.id">
+        <router-link :to="{ name: 'VaultDetails', params: { vaultId: vaultProp?.id } }" title="open the vault page">
+            <div class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button" title="click to see details"
+                :style="{ backgroundImage: `url(${vaultProp?.img})` }">
+                <div class="d-flex align-items-end">
+                    <p class="p-2 box rounded"> {{ vaultProp.name }}</p>
+                    <p v-if="vaultProp.isPrivate"><i class="mdi mdi-lock fs-3 p-3"></i></p>
+                </div>
+            </div>
+        </router-link>
+    </div>
+    <div v-else>
         <router-link :to="{ name: 'VaultDetails', params: { vaultId: vaultProp?.id } }" title="open the vault page">
             <div class="backgroundImg mb-5 mt-4  rounded text-light d-flex" role="button" title="click to see details"
                 :style="{ backgroundImage: `url(${vaultProp?.img})` }">

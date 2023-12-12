@@ -29,9 +29,16 @@ class KeepsService {
         return newKeep
     }
 
+    async updateKeep(keepId) {
+        const res = await api.get(`api/keeps/${keepId}`)
+        const newKeep = new Keep(res.data)
+        AppState.activeKeep = newKeep
+    }
+
     async removeKeep(keepId) {
         const res = api.delete(`api/keeps/${keepId}`)
         AppState.activeKeep = null
+        // this.clearAppState()
     }
 
     async openKeepDetails(Keep) {

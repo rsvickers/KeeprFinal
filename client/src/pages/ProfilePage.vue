@@ -3,13 +3,19 @@
         <section class="row justify-content-center">
             <div class="col-10 col-md-6 text-center">
                 <!-- TODO add coverImg after allowing update to profile -->
-                <img :src="profile.coverImg" alt="">
-                <img class="profile" :src="profile.picture" alt="" title="profile picture">
+                <img class="coolImg" :src="profile.coverImg" alt="">
             </div>
-            <div>
-                <p>{{ vaults.length }} Vaults || {{ keeps.length }} Keeps</p>
 
+            <div class="absolute ">
+                <div class="d-flex justify-content-center">
+                    <img class="profile" :src="profile.picture" alt="" title="profile picture">
+                </div>
+                <div class="text-center mt-3">
+                    <h3>{{ profile.name }}</h3>
+                    <p>{{ vaults.length }} Vaults || {{ keeps.length }} Keeps</p>
+                </div>
             </div>
+
             <h2>Vaults</h2>
             <div v-for="vault in vaults" :key="vault.id" class="col-md-3 col-6">
                 <VaultCardComponent :vaultProp="vault" />
@@ -88,5 +94,21 @@ export default {
     height: 15dvh;
     width: 15dvh;
     border-radius: 5rem;
+}
+
+h2 {
+    margin-top: 10dvh;
+    margin-left: 5vw;
+}
+
+.coolImg {
+    height: 25dvh;
+    width: 100%;
+}
+
+.absolute {
+    position: absolute;
+    left: 1%;
+    top: 23%;
 }
 </style>

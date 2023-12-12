@@ -25,7 +25,7 @@ class KeepsService {
         const res = await api.post('api/keeps', keepData)
         // logger.log('created a keep', res.data)
         const newKeep = new Keep(res.data)
-        AppState.activeKeep.kept++
+        // AppState.activeKeep.kept++
         AppState.keeps.push(newKeep)
         return newKeep
     }
@@ -37,7 +37,8 @@ class KeepsService {
     }
 
     async removeKeep(keepId) {
-        const res = api.delete(`api/keeps/${keepId}`)
+        const res = await api.delete(`api/keeps/${keepId}`)
+        logger.log('Keep delete', res.data)
         AppState.activeKeep = null
         // this.clearAppState()
     }

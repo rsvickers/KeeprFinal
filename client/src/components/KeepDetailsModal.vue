@@ -23,11 +23,11 @@
                                 <div>
                                     <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
                                             class="mdi mdi-delete-circle text-danger fs-3" title="delete keep" role="button"
                                             type="button"></i></p>
-                                </div>
+                                </div> -->
                                 <!-- </div> -->
                                 <div>
                                     <h3>{{ keep?.name }}</h3>
@@ -35,15 +35,22 @@
                                 </div>
 
                                 <!-- TODO work on dropdown to save vaults and such..! -->
-                                <div v-if="account.id == keep?.creatorId">
-                                    <div v-if="isKeptInVault" v-for="vault in vaults" :key="vault.id">
-                                        <button @click.prevent="removeKeepVault(isKeptInVault.vaultKeepId)" type="button"
-                                            :title="`Remove keep from ${vault.name}`">Remove</button>
-                                    </div>
-                                </div>
-                                <div v-if="account.id == keep?.creatorId">
-                                    <div v-if="!isKeptInVault">
 
+                                <!-- <div v-for="vault in vaults" :key="vault.id">
+                                        <button @click.prevent="removeKeepVault(keep.vaultKeepId)" type="button"
+                                            :title="`Remove keep from ${vault.name}`">Remove</button>
+                                    </div> -->
+
+
+                                <div v-if="account.id == keep?.creatorId">
+                                    <div v-if="{ name: 'VaultDetails' }">
+                                        <div v-for="vault in vaults" :key="vault.id">
+                                            <button @click.prevent="removeKeepVault(keep.vaultKeepId)"
+                                                class="btn btn-danger" type="button"
+                                                :title="`Remove keep from ${vault.name}`">Remove</button>
+                                        </div>
+                                    </div>
+                                    <div v-if="{ name: 'Home' }">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             Vaults
@@ -91,11 +98,12 @@ import { AppState } from '../AppState.js';
 import { computed, reactive, onMounted, watch } from 'vue';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Modal } from 'bootstrap';
 import { vaultKeepsService } from '../services/VaultKeepsService';
 export default {
     setup() {
+        const route = useRoute();
         const router = useRouter();
         // watch(() => {
         //     keepsService.clearAppState();
@@ -104,7 +112,9 @@ export default {
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
-            isKeptInVault: computed(() => AppState.vaultKeeps.find((vaultKeep) => vaultKeep.id == AppState.account.id)),
+            isKeptInVault: computed(() => { AppState.activeKeep.vaultKeepId }),
+
+
 
             async updateKeep() {
                 try {

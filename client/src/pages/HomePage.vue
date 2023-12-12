@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
     <section class="row">
+
       <div v-for="keep in keeps" :key="keep.id" class="col-md-3 col-6">
         <KeepCardComponent :keepProp="keep" />
       </div>
@@ -37,4 +38,16 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.masonry {
+  columns: 200px;
+}
+
+p {
+  margin: 0;
+}
+
+.height-100 {
+  max-height: 100dvh;
+}
+</style>

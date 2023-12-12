@@ -19,6 +19,11 @@ class VaultsService {
         AppState.activeVault = newVault
     }
 
+    async getMyVaults() {
+        const res = await api.get('account/vaults')
+        AppState.vaults = res.data.map((v) => new Vault(v))
+    }
+
     async removeVault(vaultId) {
         const res = await api.delete(`api/vaults/${vaultId}`)
         logger.log('Removed Vault', res.data)

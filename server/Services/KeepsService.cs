@@ -41,6 +41,7 @@ public class KeepsService
     {
         Keep keep = GetKeepsById(keepId, userId);
         keep.Views++;
+        keep.Kept++;
         _keepsRepository.UpdateKeep(keep);
         return keep;
     }
@@ -68,6 +69,7 @@ public class KeepsService
         keepToUpdate.Name = keepData.Name ?? keepToUpdate.Name;
         keepToUpdate.Description = keepData.Description ?? keepToUpdate.Description;
         keepToUpdate.Img = keepData.Img ?? keepToUpdate.Img;
+        keepToUpdate.Kept = keepData.Kept ?? keepToUpdate.Kept;
 
         Keep keep = _keepsRepository.UpdateKeep(keepToUpdate);
         return keep;

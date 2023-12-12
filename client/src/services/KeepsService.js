@@ -24,6 +24,7 @@ class KeepsService {
         const res = await api.post('api/keeps', keepData)
         // logger.log('created a keep', res.data)
         const newKeep = new Keep(res.data)
+        AppState.activeKeep.kept++
         AppState.keeps.push(newKeep)
         return newKeep
     }
@@ -34,6 +35,7 @@ class KeepsService {
     }
 
     async openKeepDetails(Keep) {
+        // AppState.activeKeep.views++
         AppState.activeKeep = Keep
     }
 

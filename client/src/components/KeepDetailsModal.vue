@@ -36,7 +36,7 @@
 
                                 <!-- TODO work on dropdown to save vaults and such..! -->
                                 <div v-if="account.id == keep?.creatorId">
-                                    <div v-if="isKeptInVault">
+                                    <div v-if="isKeptInVault" v-for="vault in vaults" :key="vault.id">
                                         <button @click.prevent="removeKeepVault(isKeptInVault.vaultKeepId)" type="button"
                                             :title="`Remove keep from ${vault.name}`">Remove</button>
                                     </div>

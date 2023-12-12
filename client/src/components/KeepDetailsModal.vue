@@ -36,22 +36,37 @@
 
                                 <!-- TODO work on dropdown to save vaults and such..! -->
                                 <div v-if="account.id == keep?.creatorId">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Vaults
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li v-for="vault in vaults" :key="vault.id">
-                                            <button @click="createKeepVault(vault.id)" type="button"
-                                                :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
-                                                    vault.name }}</button>
-                                        </li>
-                                    </ul>
+                                    <div v-if="isKeptInVault">
+                                        <button @click.prevent="removeKeepVault(isKeptInVault.vaultKeepId)" type="button"
+                                            :title="`Remove keep from ${vault.name}`">Remove</button>
+                                    </div>
+                                </div>
+                                <div v-if="account.id == keep?.creatorId">
+                                    <div v-if="!isKeptInVault">
+
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Vaults
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li v-for="vault in vaults" :key="vault.id">
+                                                <button @click="createKeepVault(vault.id)" type="button"
+                                                    :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
+                                                        vault.name }}</button>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
 
 
-
-                                <div>
+                                <div v-if="account.id == keep?.creatorId">
+                                    <router-link :to="{ name: 'Account' }">
+                                        <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
+                                            title="Go to there profile!">
+                                    </router-link>
+                                    <p>{{ keep?.creator.name }}</p>
+                                </div>
+                                <div v-else>
                                     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
                                         <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
                                             title="Go to there profile!">
@@ -86,6 +101,7 @@ export default {
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
+            isKeptInVault: computed(() => AppState.vaultKeeps.find((vaultKeep) => vaultKeep.id == AppState.account.id)),
 
             async removeKeep() {
                 try {

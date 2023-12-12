@@ -43,13 +43,13 @@
 
 
                                 <div v-if="account.id == keep?.creatorId">
-                                    <div v-if="{ name: 'VaultDetails' }">
+                                    <!-- <div v-if="{ name: 'VaultDetails' }">
                                         <div v-for="vault in vaults" :key="vault.id">
                                             <button @click.prevent="removeKeepVault(keep.vaultKeepId)"
                                                 class="btn btn-danger" type="button"
                                                 :title="`Remove keep from ${vault.name}`">Remove</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div v-if="{ name: 'Home' }">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
                                             data-bs-toggle="dropdown" aria-expanded="false">

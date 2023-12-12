@@ -49,8 +49,6 @@ export default {
     async function getMyVaults() {
       try {
         await vaultsService.getMyVaults()
-        const userId = AppState.account.id
-        await profilesService.getKeepsByProfile(userId)
       } catch (error) {
         Pop.error(error)
       }
@@ -58,7 +56,8 @@ export default {
 
     async function getMyKeeps() {
       try {
-        await profilesService.getKeepsByProfile()
+        const accountId = AppState.account.id
+        await profilesService.getKeepsByProfile(accountId)
       } catch (error) {
         Pop.error(error)
       }

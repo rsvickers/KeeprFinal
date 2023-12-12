@@ -53,6 +53,13 @@ public class KeepsService
         _keepsRepository.UpdateKeep(keep);
         return keep;
     }
+    internal Keep RemoveKepts(int keepId, string userId)
+    {
+        Keep keep = GetKeepsById(keepId, userId);
+        keep.Kept--;
+        _keepsRepository.UpdateKeep(keep);
+        return keep;
+    }
 
     internal string RemoveKeep(int keepId, string userId)
     {

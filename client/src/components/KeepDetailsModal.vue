@@ -21,7 +21,7 @@
                                     <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
                                 </div>
                                 <div>
-                                    <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept.length }}</p>
+                                    <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
                                 </div>
                                 <div>
                                     <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"

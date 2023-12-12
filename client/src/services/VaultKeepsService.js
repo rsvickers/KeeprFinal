@@ -8,7 +8,7 @@ class VaultKeepsService {
         // logger.log('Anything?', vaultKeepData)
         const res = await api.post('api/vaultKeeps', vaultKeepData)
         const newVaultKeep = new VaultKeep(res.data)
-        // AppState.activeKeep.kept++
+        AppState.activeKeep.kept++
         AppState.vaultKeeps.push(newVaultKeep)
         return newVaultKeep
     }

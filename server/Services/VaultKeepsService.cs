@@ -21,8 +21,8 @@ public class VaultKeepsService
         {
             throw new Exception("NOT YOUR VAULT");
         }
-        // Keep keep = _keepsService.GetKeepsById
         VaultKeep vaultKeep = _vaultKeepsRepository.CreateVaultKeep(vaultKeepData);
+        _keepsService.GetKepts(vaultKeepData.KeepId, vaultKeepData.CreatorId);
 
         return vaultKeep;
     }
@@ -46,6 +46,7 @@ public class VaultKeepsService
             throw new Exception("NOT YOURS TO DELETE");
         }
         _vaultKeepsRepository.RemoveVaultKeep(vaultKeepId);
+        _keepsService.RemoveKepts(vaultKeep.KeepId, vaultKeep.CreatorId);
         return $"{vaultKeepId} has been deleted";
 
         // Vault vault = _vaultsService.GetVaultById(vaultKeep.VaultId);

@@ -102,7 +102,7 @@ export default {
             account: computed(() => AppState.account),
             vaultKeep: computed(() => AppState.vaultKeeps.find((vk) => vk.id == AppState.account.id)),
             isKeptInVault: computed(() => {
-                return route.params.vaultId && AppState.account.id == AppState.activeVault.creatorId
+                return route.params.vaultId && AppState.account.id == AppState.activeVault?.creatorId
             }),
 
 

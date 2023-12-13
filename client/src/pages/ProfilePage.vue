@@ -90,9 +90,6 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
-    // position: absolute;
-    // bottom: -20dvh;
-    // left: 50%;
     height: 15dvh;
     width: 15dvh;
     border-radius: 5rem;

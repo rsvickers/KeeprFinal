@@ -19,11 +19,11 @@
               </div>
             </router-link>
             <div>
-              <button type="button" class="btn btn-outline-success  w-100" data-bs-toggle="modal"
+              <button type="button" class="btn coolButton  w-100" data-bs-toggle="modal"
                 data-bs-target="#createKeepModal">
                 new keep
               </button>
-              <button type="button" class="btn btn-outline-success  w-100" data-bs-toggle="modal"
+              <button type="button" class="btn coolButton  w-100" data-bs-toggle="modal"
                 data-bs-target="#createVaultModal">
                 new vault
               </button>
@@ -59,4 +59,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.coolButton {
+  background-color: #DED6E9;
+}
+</style>

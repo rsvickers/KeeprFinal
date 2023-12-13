@@ -5,6 +5,7 @@
         <p role="button" title="home" class="p-2 mt-3 text-dark">Home</p>
       </div>
     </router-link>
+    <!-- <div>Keepr</div> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,6 +19,7 @@
       <!-- LOGIN COMPONENT HERE -->
       <div>
       </div>
+
       <Login />
     </div>
   </nav>
@@ -67,6 +69,10 @@ a:hover {
 @media screen and (min-width: 768px) {
   nav {
     height: 70px;
+  }
+
+  .homeBg {
+    background-color: #DED6E9;
   }
 }
 </style>

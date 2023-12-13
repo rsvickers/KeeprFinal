@@ -12,7 +12,7 @@
         <div class=" d-flex justify-content-between align-items-end">
             <p class="p-2 box rounded">{{ keepProp?.name }}</p>
 
-            <img class="avatar rounded-circle mb-2 mx-3" :src="keepProp?.creator.picture || keepProp?.creator.img" alt=""
+            <img class="avatar rounded-circle mb-2" :src="keepProp?.creator.picture || keepProp?.creator.img" alt=""
                 role="button" :title="`${keepProp?.creator.name}`">
 
         </div>

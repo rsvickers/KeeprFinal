@@ -32,24 +32,24 @@
                                 </div>
 
 
-                                <div v-if="account.id == keep?.creatorId">
+                                <div v-if="account.id">
                                     <div v-if="isKeptInVault">
                                         <button @click.prevent="removeKeepVault(keep?.id)" class="btn btn-danger"
                                             type="button" :title="`Remove keep from vault`">Remove</button>
                                     </div>
-                                    <div v-if="!isKeptInVault">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            Vaults
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li v-for="vault in vaults" :key="vault.id">
-                                                <button @click="createKeepVault(vault.id)" type="button"
-                                                    :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
-                                                        vault.name }}</button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                </div>
+                                <div v-if="!isKeptInVault">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Vaults
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="vault in vaults" :key="vault.id">
+                                            <button @click="createKeepVault(vault.id)" type="button"
+                                                :title="`Add keep to ${vault.name}`" class="dropdown-item">{{
+                                                    vault.name }}</button>
+                                        </li>
+                                    </ul>
                                 </div>
 
 

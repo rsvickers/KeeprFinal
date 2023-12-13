@@ -10,6 +10,7 @@
   <CreateKeepModal />
   <CreateVaultModal />
   <EditAccountModal />
+  <!-- <VaultKeepComponent /> -->
 </template>
 
 <script>
@@ -20,6 +21,7 @@ import KeepDetailsModal from './components/KeepDetailsModal.vue'
 import CreateKeepModal from './components/CreateKeepModal.vue'
 import EditAccountModal from './components/EditAccountModal.vue'
 import CreateVaultModal from './components/CreateVaultModal.vue'
+// import VaultKeepComponent from './components/VaultKeepComponent.vue'
 
 export default {
   setup() {

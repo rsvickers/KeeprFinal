@@ -36,6 +36,7 @@
                                     <div v-if="isKeptInVault">
                                         <button @click.prevent="removeKeepVault(keep?.id)" class="btn btn-danger"
                                             type="button" :title="`Remove keep from vault`">Remove</button>
+                                        <!-- <VaultKeepComponent /> -->
                                     </div>
                                 </div>
                                 <div v-if="!isKeptInVault">
@@ -89,6 +90,8 @@ import { keepsService } from '../services/KeepsService';
 import { useRoute, useRouter } from 'vue-router';
 import { Modal } from 'bootstrap';
 import { vaultKeepsService } from '../services/VaultKeepsService';
+import { vaultsService } from '../services/VaultsService';
+// import VaultKeepComponent from './VaultKeepComponent.vue';
 export default {
     setup() {
         const route = useRoute();
@@ -100,72 +103,69 @@ export default {
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
+            // vaultKeeps: computed(() => AppState.vaultKeeps),
             vaultKeep: computed(() => AppState.vaultKeeps.find((vk) => vk.id == AppState.account.id)),
             isKeptInVault: computed(() => {
-                return route.params.vaultId && AppState.account.id == AppState.activeVault?.creatorId
+                return route.params.vaultId && AppState.account.id == AppState.activeVault?.creatorId;
             }),
-
-
-
             async updateKeep() {
                 try {
                     const keep = AppState.activeKeep;
                     // const keepData =
-                    await keepsService.updateKeep(keep.id)
-                } catch (error) {
-                    Pop.error(error)
+                    await keepsService.updateKeep(keep.id);
                 }
-
+                catch (error) {
+                    Pop.error(error);
+                }
             },
-
-
             async removeKeep() {
                 try {
                     const keep = AppState.activeKeep;
-                    const yes = await Pop.confirm(`Are you sure you want to delete ${keep.name}`)
+                    const yes = await Pop.confirm(`Are you sure you want to delete ${keep.name}`);
                     if (!yes) {
-                        return
+                        return;
                     }
-                    await keepsService.removeKeep(keep.id)
-                    Modal.getInstance('#keepDetailsModal').hide()
-                    Pop.success(`${keep.name} has been deleted.`)
-                    keepsService.clearAppState()
-
+                    await keepsService.removeKeep(keep.id);
+                    Modal.getInstance('#keepDetailsModal').hide();
+                    Pop.success(`${keep.name} has been deleted.`);
+                    keepsService.clearAppState();
                     // AppState.activeKeep = null
                     router.push({ name: 'Home' });
-                } catch (error) {
-                    Pop.error(error)
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             },
-
             async createKeepVault(vaultId) {
                 try {
-                    const keepId = AppState.activeKeep.id
+                    const keepId = AppState.activeKeep.id;
                     // const vaultId = AppState.vaults.id
-                    const vaultKeepData = { vaultId, keepId }
-                    await vaultKeepsService.createKeepVault(vaultKeepData)
-                    Pop.success("Saved this keep!")
-                } catch (error) {
-                    Pop.error(error)
+                    const vaultKeepData = { vaultId, keepId };
+                    await vaultKeepsService.createKeepVault(vaultKeepData);
+                    Pop.success("Saved this keep!");
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             },
-
             async removeKeepVault(keepId) {
                 try {
-                    const yes = await Pop.confirm(`Are you sure you want to remove this keep from the vault?`)
+                    const yes = await Pop.confirm(`Are you sure you want to remove this keep from the vault?`);
                     if (!yes) {
-                        return
+                        return;
                     }
-                    Modal.getOrCreateInstance('#keepDetailsModal').hide()
-                    await vaultKeepsService.removeVaultKeep(keepId)
-                    Pop.success('Keep left the vault!')
-                } catch (error) {
-                    Pop.error(error)
+                    Modal.getOrCreateInstance('#keepDetailsModal').hide();
+                    await vaultKeepsService.removeVaultKeep(keepId);
+                    Pop.success('Keep left the vault!');
+                    // keepsService.getKeepsInVault()
+                }
+                catch (error) {
+                    Pop.error(error);
                 }
             }
-        }
-
-    }
+        };
+    },
+    // components: { VaultKeepComponent }
 };
 </script>
 

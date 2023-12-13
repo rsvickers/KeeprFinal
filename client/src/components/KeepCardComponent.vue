@@ -3,12 +3,12 @@
         role="button" title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
         <!-- <div @click="updateKeep()"> -->
 
-        <div>
-            <p v-if="keepProp?.creatorId == account.id"><i @click.stop="removeKeep()"
-                    class="mdi mdi-delete-circle text-danger fs-1 box p-2 m-3 rounded" title="delete keep" role="button"
-                    type="button"></i>
-            </p>
-        </div>
+        <!-- <div v-if="{ name: 'VaultDetails' }"> -->
+        <p v-if="keepProp?.creatorId == account.id"><i @click.stop="removeKeep()"
+                class="mdi mdi-delete-circle text-danger fs-1 box p-2 m-3 rounded" title="delete keep" role="button"
+                type="button"></i>
+        </p>
+        <!-- </div> -->
         <div class=" d-flex justify-content-between align-items-end">
             <p class="p-2 box rounded">{{ keepProp?.name }}</p>
 
@@ -38,6 +38,7 @@ export default {
     },
     setup(props) {
         const router = useRouter();
+        // const route = useRoute();
 
         watchEffect(() => {
             keepsService.clearAppState()

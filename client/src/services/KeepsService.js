@@ -52,6 +52,10 @@ class KeepsService {
         AppState.activeKeep = Keep
     }
 
+    async setActiveKeep(keep) {
+        AppState.activeKeep = keep
+    }
+
     clearAppState() {
         AppState.activeKeep = null
     }

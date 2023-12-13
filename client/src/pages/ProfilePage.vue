@@ -37,6 +37,7 @@ import Pop from '../utils/Pop';
 import { profilesService } from '../services/ProfilesService'
 import KeepCardComponent from '../components/KeepCardComponent.vue';
 import VaultCardComponent from '../components/VaultCardComponent.vue'
+import { Modal } from 'bootstrap';
 
 
 export default {
@@ -51,6 +52,7 @@ export default {
             try {
                 const profileId = route.params.profileId;
                 await profilesService.getProfileById(profileId);
+                Modal.getOrCreateInstance('#keepDetailsModal').hide()
             }
             catch (error) {
                 Pop.error(error);

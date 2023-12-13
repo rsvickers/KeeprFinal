@@ -1,20 +1,20 @@
 <template>
-    <div @click.prevent="openKeepDetails(keepProp)" class=" mb-5 mt-4 masonry img-shadow text-light d-flex" role="button"
-        title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
+    <div @click.prevent="openKeepDetails(keepProp)" class=" mb-5 mt-4 img-shadow rounded backgroundImg text-light d-flex"
+        role="button" title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
         <!-- <div @click="updateKeep()"> -->
 
         <div>
             <p v-if="keepProp?.creatorId == account.id"><i @click.stop="removeKeep()"
-                    class="mdi mdi-delete-circle text-danger fs-3" title="delete keep" role="button" type="button"></i>
+                    class="mdi mdi-delete-circle text-danger fs-1 box p-2 m-3 rounded" title="delete keep" role="button"
+                    type="button"></i>
             </p>
         </div>
         <div class=" d-flex justify-content-between align-items-end">
             <p class="p-2 box rounded">{{ keepProp?.name }}</p>
-            <!-- TODO ask how the form doesnt show up when I click on  -->
-            <!-- <router-link :to="{ name: 'Profile', params: { profileId: keepProp.creator.id } }"> -->
-            <img class="avatar rounded-circle" :src="keepProp?.creator.picture || keepProp?.creator.img" alt=""
+
+            <img class="avatar rounded-circle mb-2 mx-3" :src="keepProp?.creator.picture || keepProp?.creator.img" alt=""
                 role="button" :title="`${keepProp?.creator.name}`">
-            <!-- </router-link> -->
+
         </div>
         <!-- </div> -->
 
@@ -30,6 +30,7 @@ import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService.js'
 import { Modal } from 'bootstrap';
 import { useRouter } from 'vue-router';
+import { vaultsService } from '../services/VaultsService';
 
 export default {
     props: {
@@ -65,6 +66,7 @@ export default {
                     await keepsService.openKeepDetails(keepProp)
                     Modal.getOrCreateInstance('#keepDetailsModal').show()
                     this.updateKeep()
+                    vaultsService.getMyVaults()
                     // keepProp.views++
                     // this.removeKeep(keepId)
                 } catch (error) {
@@ -98,7 +100,7 @@ export default {
 <style lang="scss" scoped>
 // TODO eventually change this to masonry
 .backgroundImg {
-    height: 20rem;
+    height: 25rem;
     width: 100%;
     background-position: center;
     background-size: cover;
@@ -112,29 +114,11 @@ export default {
 }
 
 .avatar {
-    height: 8dvh;
-    width: 8dvh;
+    height: 5dvh;
+    width: 5dvh;
     object-fit: cover;
     object-position: center;
 }
-
-
-.masonry {
-    $gap: 1.25em;
-    columns: 15dvw;
-    column-gap: $gap;
-
-    div {
-        margin-bottom: $gap;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .masonry {
-        columns: 35dvw;
-    }
-}
-
 
 .img-shadow {
     border: 1px solid black;

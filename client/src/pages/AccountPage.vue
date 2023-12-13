@@ -43,6 +43,7 @@ import KeepCardComponent from '../components/KeepCardComponent.vue';
 import Pop from '../utils/Pop';
 import { vaultsService } from '../services/VaultsService';
 import { profilesService } from '../services/ProfilesService';
+import { Modal } from 'bootstrap';
 export default {
   setup() {
     watchEffect(() => {
@@ -54,6 +55,7 @@ export default {
     async function getMyVaults() {
       try {
         await vaultsService.getMyVaults()
+        Modal.getOrCreateInstance('#keepDetailsModal').hide()
       } catch (error) {
         Pop.error(error)
       }

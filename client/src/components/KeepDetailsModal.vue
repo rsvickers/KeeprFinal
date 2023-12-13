@@ -17,24 +17,19 @@
                             <div class="col-6 d-flex flex-column justify-content-between text-center">
                                 <!-- <div @click-="updateKeep()"> -->
                                 <!-- TODO add the view and kept count -->
-                                <div>
-                                    <p><i class="mdi mdi-eye"></i>{{ keep?.views }}</p>
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                        <p><i class="mdi mdi-eye "></i>{{ keep?.views }}</p>
+                                    </div>
+                                    <div>
+                                        <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p><i class="mdi mdi-alpha-k-box-outline"></i> {{ keep?.kept }}</p>
-                                </div>
-                                <!-- <div>
-                                    <p v-if="keep?.creatorId == account.id"><i @click="removeKeep()"
-                                            class="mdi mdi-delete-circle text-danger fs-3" title="delete keep" role="button"
-                                            type="button"></i></p>
-                                </div> -->
-                                <!-- </div> -->
+
                                 <div>
                                     <h3>{{ keep?.name }}</h3>
                                     <p>{{ keep?.description }}</p>
                                 </div>
-
-                                <!-- TODO work on dropdown to save vaults and such..! -->
 
 
                                 <div v-if="account.id == keep?.creatorId">
@@ -67,8 +62,9 @@
                                 </div>
                                 <div v-else>
                                     <router-link :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
-                                        <img class="avatar rounded-circle" :src="keep?.creator.picture" alt="" role="button"
-                                            title="Go to there profile!">
+                                        <img class="avatar rounded-circle " :src="keep?.creator.picture" alt=""
+                                            role="button" title="Go to there profile!">
+
                                     </router-link>
                                     <p>{{ keep?.creator.name }}</p>
                                 </div>

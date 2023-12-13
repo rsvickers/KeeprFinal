@@ -36,21 +36,13 @@
 
                                 <!-- TODO work on dropdown to save vaults and such..! -->
 
-                                <!-- <div v-for="vault in vaults" :key="vault.id">
-                                        <button @click.prevent="removeKeepVault(keep.vaultKeepId)" type="button"
-                                            :title="`Remove keep from ${vault.name}`">Remove</button>
-                                    </div> -->
-
 
                                 <div v-if="account.id == keep?.creatorId">
-                                    <!-- <div v-if="{ name: 'VaultDetails' }">
-                                        <div v-for="vault in vaults" :key="vault.id">
-                                            <button @click.prevent="removeKeepVault(keep.vaultKeepId)"
-                                                class="btn btn-danger" type="button"
-                                                :title="`Remove keep from ${vault.name}`">Remove</button>
-                                        </div>
-                                    </div> -->
-                                    <div v-if="{ name: 'Home' }">
+                                    <div v-if="isKeptInVault">
+                                        <button @click.prevent="removeKeepVault(keep?.id)" class="btn btn-danger"
+                                            type="button" :title="`Remove keep from vault`">Remove</button>
+                                    </div>
+                                    <div v-if="!isKeptInVault">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" title="my vaults"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             Vaults
@@ -112,7 +104,10 @@ export default {
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             account: computed(() => AppState.account),
-            isKeptInVault: computed(() => { AppState.activeKeep.vaultKeepId }),
+            vaultKeep: computed(() => AppState.vaultKeeps.find((vk) => vk.id == AppState.account.id)),
+            isKeptInVault: computed(() => {
+                return route.params.vaultId && AppState.account.id == AppState.activeVault.creatorId
+            }),
 
 
 
@@ -154,6 +149,20 @@ export default {
                     const vaultKeepData = { vaultId, keepId }
                     await vaultKeepsService.createKeepVault(vaultKeepData)
                     Pop.success("Saved this keep!")
+                } catch (error) {
+                    Pop.error(error)
+                }
+            },
+
+            async removeKeepVault(keepId) {
+                try {
+                    const yes = await Pop.confirm(`Are you sure you want to delete?`)
+                    if (!yes) {
+                        return
+                    }
+                    Modal.getOrCreateInstance('#keepDetailsModal').hide()
+                    await vaultKeepsService.removeVaultKeep(keepId)
+                    Pop.success('Keep left the vault!')
                 } catch (error) {
                     Pop.error(error)
                 }

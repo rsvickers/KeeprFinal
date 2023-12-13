@@ -1,3 +1,4 @@
+import { Logger } from "sass"
 import { AppState } from "../AppState"
 import { VaultKeep } from "../models/VaultKeep"
 import { logger } from "../utils/Logger"
@@ -11,6 +12,16 @@ class VaultKeepsService {
         AppState.activeKeep.kept++
         AppState.vaultKeeps.push(newVaultKeep)
         return newVaultKeep
+    }
+
+    async removeVaultKeep(keepId) {
+        const vaultKeep = AppState.vaultKeeps.find((vk) => vk.id == keepId);
+
+        if (vaultKeep) {
+            const { vaultKeepId } = vaultKeep;
+            AppState.vaultKeeps = AppState.vaultKeeps.filter((vk) => vk.id != keepId);
+            await api.delete(`api/vaultKeeps/${vaultKeepId}`);
+        }
     }
 }
 

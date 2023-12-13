@@ -1,5 +1,5 @@
 <template>
-    <div @click.prevent="openKeepDetails(keepProp)" class=" mb-5 mt-4 text-light d-flex" role="button"
+    <div @click.prevent="openKeepDetails(keepProp)" class=" mb-5 mt-4 masonry img-shadow text-light d-flex" role="button"
         title="click to see details" :style="{ backgroundImage: `url(${keepProp?.img})` }">
         <!-- <div @click="updateKeep()"> -->
 

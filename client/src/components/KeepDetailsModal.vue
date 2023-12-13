@@ -28,7 +28,7 @@
 
                                 <div>
                                     <h3>{{ keep?.name }}</h3>
-                                    <p>{{ keep?.description }}</p>
+                                    <p class="wordBreak">{{ keep?.description }}</p>
                                 </div>
 
 
@@ -152,7 +152,7 @@ export default {
 
             async removeKeepVault(keepId) {
                 try {
-                    const yes = await Pop.confirm(`Are you sure you want to delete?`)
+                    const yes = await Pop.confirm(`Are you sure you want to remove this keep from the vault?`)
                     if (!yes) {
                         return
                     }
@@ -176,5 +176,9 @@ export default {
     width: 8dvh;
     object-fit: cover;
     object-position: center;
+}
+
+.wordBreak {
+    word-break: break-all;
 }
 </style>

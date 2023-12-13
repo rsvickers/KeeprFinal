@@ -98,7 +98,6 @@ export default {
 
 
 <style lang="scss" scoped>
-// TODO eventually change this to masonry
 .backgroundImg {
     height: 25rem;
     width: 100%;

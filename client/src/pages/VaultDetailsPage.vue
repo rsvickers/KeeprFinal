@@ -12,8 +12,8 @@
                     <p class="p-3 box rounded text-center">by: {{ vault.creator.name }}</p>
                 </div>
                 <div v-if="vault.creatorId == account.id">
-                    <button @click="removeVault()" class="btn btn-danger mt-2" title="Delete Vault" type="button"><i
-                            class="mdi mdi-delete"></i></button>
+                    <p @click="removeVault()" class=" mt-2" title="Delete Vault" type="button"><i
+                            class="mdi mdi-delete-circle box rounded text-danger p-2 fs-1"></i></p>
                 </div>
 
             </div>

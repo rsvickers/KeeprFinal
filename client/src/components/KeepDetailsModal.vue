@@ -11,10 +11,10 @@
                     <div class="container">
 
                         <section v-if="keep?.id" class="row">
-                            <div class="col-6">
+                            <div class="col-md-6 col-12">
                                 <img class="img-fluid" :src="keep?.img" alt="">
                             </div>
-                            <div class="col-6 d-flex flex-column justify-content-between text-center">
+                            <div class="col-md-6 col-12 d-flex flex-column justify-content-between text-center">
                                 <!-- <div @click-="updateKeep()"> -->
                                 <!-- TODO add the view and kept count -->
                                 <div class="d-flex justify-content-center">

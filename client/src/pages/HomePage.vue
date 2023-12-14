@@ -43,7 +43,7 @@ export default {
 
 <style scoped lang="scss">
 .masonry {
-  gap: 1em;
+  gap: 1.25rem;
   column-gap: gap;
   columns: 20dvw;
 

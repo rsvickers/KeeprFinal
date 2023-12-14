@@ -34,6 +34,7 @@
 
                                 <div v-if="account.id">
                                     <div v-if="isKeptInVault">
+
                                         <button @click.prevent="removeKeepVault(keep?.id)" class="btn btn-danger"
                                             type="button" :title="`Remove keep from vault`">Remove</button>
                                         <!-- <VaultKeepComponent /> -->

@@ -10,8 +10,8 @@
       <div class="absolute">
         <div class="d-flex justify-content-center align-items-end">
           <img class="profile" :src="account.picture" alt="" />
-          <p><i onclick.prevent="update" class="mdi mdi-dots-horizontal fs-3" role="button" title="edit account"
-              data-bs-toggle="modal" data-bs-target="#editAccountModal"></i></p>
+          <p><i onclick.prevent="update" class="mdi mdi-dots-horizontal box rounded-pill text-light fs-3" role="button"
+              title="edit account" data-bs-toggle="modal" data-bs-target="#editAccountModal"></i></p>
         </div>
 
         <div class="text-center mt-3">
@@ -99,6 +99,13 @@ h2 {
   height: 25dvh;
   width: 100%;
 }
+
+.box {
+  box-shadow: 1px 1px rgba(215, 215, 215, 0.759);
+  background-color: rgba(38, 38, 38, 0.421);
+}
+
+
 
 .absolute {
   position: absolute;

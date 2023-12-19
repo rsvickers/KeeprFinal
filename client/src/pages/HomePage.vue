@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
     <section class="row">
-      <div class="col-12">
-        <div class="masonry">
-          <div v-for="keep in keeps" :key="keep.id">
-            <KeepCardComponent :keepProp="keep" />
-          </div>
-        </div>
+      <!-- <div class="col-12"> -->
+      <!-- <div class=""> -->
+      <div v-for="keep in keeps" :key="keep.id" class="col-md-3 col-6">
+        <KeepCardComponent :keepProp="keep" />
       </div>
+      <!-- </div> -->
+      <!-- </div> -->
     </section>
   </div>
 </template>
